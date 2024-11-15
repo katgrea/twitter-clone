@@ -25,6 +25,7 @@ import { ToolTip } from '@components/ui/tooltip';
 import { HeroIcon } from '@components/ui/hero-icon';
 import { Loading } from '@components/ui/loading';
 import type { ReactElement, ReactNode } from 'react';
+import Filter from 'bad-words'; // Import bad-words for filtering foul language
 
 export default function Bookmarks(): JSX.Element {
   const { user } = useAuth();
@@ -53,6 +54,14 @@ export default function Bookmarks(): JSX.Element {
     await clearAllBookmarks(userId);
     closeModal();
     toast.success('Successfully cleared all bookmarks');
+  };
+
+  // Initialize bad-words filter
+  const filter = new Filter();
+
+  // Function to clean tweets or input using bad-words
+  const cleanText = (text: string): string => {
+    return filter.clean(text);
   };
 
   return (
@@ -105,7 +114,8 @@ export default function Bookmarks(): JSX.Element {
         ) : (
           <AnimatePresence mode='popLayout'>
             {tweetData?.map((tweet) => (
-              <Tweet {...tweet} key={tweet.id} />
+              // Apply foul language detection to tweet text
+              <Tweet {...tweet} key={tweet.id} text={cleanText(tweet.text)} />
             ))}
           </AnimatePresence>
         )}
