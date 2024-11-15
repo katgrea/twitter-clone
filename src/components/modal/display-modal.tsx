@@ -30,7 +30,7 @@ export function DisplayModal({ closeModal }: DisplayModalProps): JSX.Element {
       <div className='flex flex-col gap-3 text-center'>
         <h2 className='text-2xl font-bold'>Customize your view</h2>
         <p className='text-light-secondary dark:text-dark-secondary'>
-          These settings affect all the Twitter accounts on this browser.
+          These settings affect all the Trill accounts on this browser.
         </p>
       </div>
       <article
@@ -41,7 +41,7 @@ export function DisplayModal({ closeModal }: DisplayModalProps): JSX.Element {
           <UserAvatar src='/assets/twitter-avatar.jpg' alt='Twitter' />
           <div>
             <div className='flex gap-1'>
-              <UserName verified name='Twitter' />
+              <UserName verified name='Trill' />
               <p className='text-light-secondary dark:text-dark-secondary'>
                 @twitter
               </p>
@@ -51,10 +51,10 @@ export function DisplayModal({ closeModal }: DisplayModalProps): JSX.Element {
               </div>
             </div>
             <p className='whitespace-pre-line break-words'>
-              At the heart of Twitter are short messages called Tweets — just
+              At the heart of Trill are short messages called Tweets — just
               like this one — which can include photos, videos, links, text,
               hashtags, and mentions like{' '}
-              <span className='text-main-accent'>@twitter</span>.
+              <span className='text-main-accent'>@trill</span>.
             </p>
           </div>
         </div>
