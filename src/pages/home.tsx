@@ -14,6 +14,7 @@ import { Tweet } from '@components/tweet/tweet';
 import { Loading } from '@components/ui/loading';
 import { Error } from '@components/ui/error';
 import type { ReactElement, ReactNode } from 'react';
+import Filter from 'bad-words'; // Import bad-words for filtering foul language
 
 export default function Home(): JSX.Element {
   const { isMobile } = useWindow();
@@ -23,6 +24,13 @@ export default function Home(): JSX.Element {
     [where('parent', '==', null), orderBy('createdAt', 'desc')],
     { includeUser: true, allowNull: true, preserve: true }
   );
+
+  const filter = new Filter(); // Initialize bad-words filter
+
+  // Function to clean tweets or input using bad-words
+  const cleanText = (text: string): string => {
+    return filter.clean(text);
+  };
 
   return (
     <MainContainer>
@@ -44,7 +52,8 @@ export default function Home(): JSX.Element {
           <>
             <AnimatePresence mode='popLayout'>
               {data.map((tweet) => (
-                <Tweet {...tweet} key={tweet.id} />
+                // Filter tweets before rendering
+                <Tweet {...tweet} key={tweet.id} text={cleanText(tweet.text)} />
               ))}
             </AnimatePresence>
             <LoadMore />
@@ -62,3 +71,4 @@ Home.getLayout = (page: ReactElement): ReactNode => (
     </MainLayout>
   </ProtectedLayout>
 );
+
